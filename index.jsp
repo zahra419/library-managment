@@ -10,7 +10,7 @@
 
     <!-- HEADER / NAVBAR -->
     <header>
-        <h1>📚 Library Management</h1>
+        <h1>📚Library Management</h1>
         <nav>
             <a href="index.jsp" class="active">Dashboard</a>
             <a href="books.jsp">All Books</a>
