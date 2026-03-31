@@ -19,6 +19,10 @@ public class Auteur {
 		this.prenom=prenom;
 		this.biography=biography;
 	}
+	public Auteur(Integer id,String nom,String prenom) {
+		this.nom=nom;
+		this.prenom=prenom;
+	}
 	public Integer getId() {
 		return this.id;
 	}

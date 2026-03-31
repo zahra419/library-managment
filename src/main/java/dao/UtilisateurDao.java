@@ -45,9 +45,9 @@ public class UtilisateurDao {
 	             PreparedStatement pst = conn.prepareStatement(sql)) {
 
 	            pst.setString(1, utilisateur.getNom());
-	            pst.setString(1, utilisateur.getPrenom());
-	            pst.setString(1, utilisateur.getCin());
-	            pst.setString(1, utilisateur.getTelephone());
+	            pst.setString(2, utilisateur.getPrenom());
+	            pst.setString(3, utilisateur.getCin());
+	            pst.setString(4, utilisateur.getTelephone());
 	            pst.executeUpdate();
 	        }
 	    }

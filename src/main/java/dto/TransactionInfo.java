@@ -14,11 +14,10 @@ public class TransactionInfo {
 	private String titre;
 	
 
-    // ========= Default Constructor =========
     public TransactionInfo() {
     }
 
-    // ========= Full Constructor =========
+ 
     public TransactionInfo(Integer utilisateurId,
     		               Integer transactionId,
     		               String titre,

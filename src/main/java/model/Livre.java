@@ -1,6 +1,7 @@
 package model;
 
 import java.sql.Date;
+import java.util.List;
 
 public class Livre {
 	private Integer id;
@@ -9,9 +10,10 @@ public class Livre {
 	private Integer quantite;
 	private String description;
 	private Date annePublication;
-	public Livre() {
-		
-	}
+	private List<Auteur> auteurs;     
+    private List<Categorie> categories; 
+
+	
 	public Livre(Integer id,String titre,String edition,Integer quantite,String description,Date annePublication) {
 		this.id=id;
 		this.titre=titre;
@@ -20,12 +22,14 @@ public class Livre {
 		this.description=description;
 		this.annePublication=annePublication;
 	}
-	public Livre(String titre,String edition,Integer quantite,String description,Date annePublication) {
+	public Livre(int id,String titre,String edition,Integer quantite,String description,Date annePublication,List<Auteur> auteurs,List<Categorie> categories) {
 		this.titre=titre;
 		this.edition=edition;
 		this.quantite=quantite;
 		this.description=description;
 		this.annePublication=annePublication;
+		this.auteurs=auteurs;
+		this.categories=categories;
 	}
 	public Integer getId() {
 	    return id;
@@ -74,5 +78,14 @@ public class Livre {
 	public void setAnnePublication(Date annePublication) {
 	    this.annePublication = annePublication;
 	} 
+	 public List<Auteur> getAuteurs() { return auteurs; }
+	 public void setAuteurs(List<Auteur> auteurs) {
+		 this.auteurs = auteurs; 
+     }
+
+	public List<Categorie> getCategories() { return categories; }
+	public void setCategories(List<Categorie> categories) { 
+		this.categories = categories; 
+	}
 
 }
