@@ -14,10 +14,15 @@ public class Auteur {
 		this.prenom=prenom;
 		this.biography=biography;
 	}
+	
 	public Auteur(String nom,String prenom,String biography) {
 		this.nom=nom;
 		this.prenom=prenom;
 		this.biography=biography;
+	}
+	public Auteur(String nom,String prenom) {
+		this.nom=nom;
+		this.prenom=prenom;
 	}
 	public Auteur(Integer id,String nom,String prenom) {
 		this.nom=nom;

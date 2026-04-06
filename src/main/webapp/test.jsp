@@ -44,7 +44,7 @@
     %>
         <table>
             <tr>
-                <th>ID</th>
+               
                 <th>Title</th>
                 <th>Edition</th>
                 <th>Quantity</th>
@@ -55,7 +55,7 @@
             for (Livre book : books) {
     %>
             <tr>
-                <td><%= book.getId() %></td>
+             
                 <td><%= book.getTitre() %></td>
                 <td><%= book.getEdition() %></td>
                 <td><%= book.getQuantite() %></td>

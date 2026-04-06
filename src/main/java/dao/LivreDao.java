@@ -14,7 +14,7 @@ import java.util.Map;
 import model.Auteur;
 import model.Categorie;
 import model.Livre;
-import test.Database;
+import database.Database;
 
 public class LivreDao {
 
@@ -83,7 +83,7 @@ public class LivreDao {
 	    return livres;
 	}
     // Insert book (without authors/categories)
-    public void insert(String titre, String edition, Integer quantite, String description, Date annePublication) throws SQLException {
+   /* public void insert(String titre, String edition, Integer quantite, String description, Date annePublication) throws SQLException {
         String sql = "INSERT INTO livre(titre, edition, quantite, description, annePublication) VALUES (?, ?, ?, ?, ?)";
         try (Connection conn = Database.getConnection();
              PreparedStatement pst = conn.prepareStatement(sql)) {
@@ -92,9 +92,76 @@ public class LivreDao {
             pst.setInt(3, quantite);
             pst.setString(4, description);
             pst.setDate(5, annePublication);
+           
             pst.executeUpdate();
         }
-    }
+    }*/
+	public void insert(Livre livre, Auteur auteur, Categorie categorie) throws SQLException {
+	    String sqlLivre = "INSERT INTO livre(titre, edition, quantite, description, annePublication) VALUES (?, ?, ?, ?, ?)";
+	    String sqlAuteur = "INSERT INTO auteur(nom, prenom) VALUES (?, ?)";
+	    String sqlCategorie = "INSERT INTO categorie(nomCategorie) VALUES (?)";
+	    String sqlAuteurLivre = "INSERT INTO auteur_livre(auteur_id, livre_id) VALUES (?, ?)";
+	    String sqlLivreCategorie = "INSERT INTO livre_categorie(livre_id, categorie_id) VALUES (?, ?)";
+
+	    try (Connection conn = Database.getConnection()) {
+	        conn.setAutoCommit(false); // Start transaction
+
+	        try (
+	            PreparedStatement pstLivre = conn.prepareStatement(sqlLivre, Statement.RETURN_GENERATED_KEYS);
+	            PreparedStatement pstAuteur = conn.prepareStatement(sqlAuteur, Statement.RETURN_GENERATED_KEYS);
+	            PreparedStatement pstCategorie = conn.prepareStatement(sqlCategorie, Statement.RETURN_GENERATED_KEYS);
+	            PreparedStatement pstAuteurLivre = conn.prepareStatement(sqlAuteurLivre);
+	            PreparedStatement pstLivreCategorie = conn.prepareStatement(sqlLivreCategorie)
+	        ) {
+	            // Insert Livre
+	            pstLivre.setString(1, livre.getTitre());
+	            pstLivre.setString(2, livre.getEdition());
+	            pstLivre.setInt(3, livre.getQuantite());
+	            pstLivre.setString(4, livre.getDescription());
+	            pstLivre.setDate(5, livre.getAnnePublication());
+	            pstLivre.executeUpdate();
+
+	            ResultSet rsLivre = pstLivre.getGeneratedKeys();
+	            if (!rsLivre.next()) throw new SQLException("Failed to retrieve livre ID.");
+	            int livreId = rsLivre.getInt(1);
+
+	            // Insert Auteur
+	            pstAuteur.setString(1, auteur.getNom());
+	            pstAuteur.setString(2, auteur.getPrenom());
+	            pstAuteur.executeUpdate();
+
+	            ResultSet rsAuteur = pstAuteur.getGeneratedKeys();
+	            if (!rsAuteur.next()) throw new SQLException("Failed to retrieve auteur ID.");
+	            int auteurId = rsAuteur.getInt(1);
+
+	            // Insert Categorie
+	            pstCategorie.setString(1, categorie.getNomCategorie());
+	            pstCategorie.executeUpdate();
+
+	            ResultSet rsCategorie = pstCategorie.getGeneratedKeys();
+	            if (!rsCategorie.next()) throw new SQLException("Failed to retrieve categorie ID.");
+	            int categorieId = rsCategorie.getInt(1);
+
+	            // Link Livre and Auteur
+	            pstAuteurLivre.setInt(1, auteurId);
+	            pstAuteurLivre.setInt(2, livreId);
+	            pstAuteurLivre.executeUpdate();
+
+	            // Link Livre and Categorie
+	            pstLivreCategorie.setInt(1, livreId);
+	            pstLivreCategorie.setInt(2, categorieId);
+	            pstLivreCategorie.executeUpdate();
+
+	            conn.commit();
+
+	        } catch (Exception e) {
+	            conn.rollback();
+	            throw e;
+	        } finally {
+	            conn.setAutoCommit(true);
+	        }
+	    }
+	}
 
     // Update quantity
     public void updateQuantite(Integer value, int id) throws SQLException {

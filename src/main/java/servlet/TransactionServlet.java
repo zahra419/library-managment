@@ -183,7 +183,7 @@ public class TransactionServlet extends HttpServlet {
         try {
             List<TransactionInfo> transactions = service.getAllTransactions();
             request.setAttribute("listAllTransactions", transactions);
-            request.getRequestDispatcher("test.jsp").forward(request, response);
+            request.getRequestDispatcher("transaction.jsp").forward(request, response);
             
         } catch (Exception e) {
             e.printStackTrace();
@@ -199,7 +199,7 @@ public class TransactionServlet extends HttpServlet {
         try {
             List<TransactionInfo> transactions = service.getTransactionsByStatus(status);
             request.setAttribute("listByStatus", transactions);
-            request.getRequestDispatcher("test.jsp").forward(request, response);
+            request.getRequestDispatcher("transaction.jsp").forward(request, response);
 
         } catch (Exception e) {
             e.printStackTrace();
@@ -215,7 +215,7 @@ public class TransactionServlet extends HttpServlet {
         try {
             Integer total = service.getTotalByStatus(status);
             request.setAttribute("total", total);
-            request.getRequestDispatcher("test.jsp").forward(request, response);
+            request.getRequestDispatcher("transaction.jsp").forward(request, response);
 
         } catch (Exception e) {
             e.printStackTrace();

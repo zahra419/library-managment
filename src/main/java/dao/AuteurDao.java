@@ -8,7 +8,7 @@ import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
 import model.Auteur;
-import test.Database;
+import database.Database;
 
 public class AuteurDao {
 	

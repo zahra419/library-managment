@@ -5,6 +5,8 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 import dao.LivreDao;
+import model.Auteur;
+import model.Categorie;
 import model.Livre;
 
 public class LivreService {
@@ -16,14 +18,26 @@ public class LivreService {
     }
 
     public void addLivre(String titre, String edition, Integer quantite,
-                         String description, Date annePublication) throws Exception {
+            Date annePublication, String nomAuteur, String prenomAuteur, String nomCategorie) throws Exception {
 
-        if (quantite < 0) {
-            throw new Exception("Quantité ne peut pas être négative");
-        }
+if (quantite < 0) {
+throw new Exception("Quantité ne peut pas être négative");
+}
 
-        dao.insert(titre, edition, quantite, description, annePublication);
-    }
+// Create objects
+Livre livre = new Livre();
+livre.setTitre(titre);
+livre.setEdition(edition);
+livre.setQuantite(quantite);
+livre.setDescription(""); // you can pass description as parameter if needed
+livre.setAnnePublication(annePublication);
+
+Auteur auteur = new Auteur(nomAuteur, prenomAuteur);
+Categorie categorie = new Categorie(nomCategorie);
+
+// Insert into database
+dao.insert(livre, auteur, categorie);
+}
 
     public void deleteLivre(int id) throws Exception {
        

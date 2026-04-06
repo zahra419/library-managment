@@ -31,6 +31,9 @@ public class Livre {
 		this.auteurs=auteurs;
 		this.categories=categories;
 	}
+	public Livre() {
+		// TODO Auto-generated constructor stub
+	}
 	public Integer getId() {
 	    return id;
 	}

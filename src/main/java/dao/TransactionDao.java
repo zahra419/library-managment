@@ -10,7 +10,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import model.Transaction;
-import test.Database;
+import database.Database;
 
 public class TransactionDao {
 	

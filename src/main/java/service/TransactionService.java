@@ -12,7 +12,7 @@ public class TransactionService {
 
     private TransactionDao dao = new TransactionDao();
 
-    // ================= GET =================
+  
     public List<TransactionInfo> getAllTransactions() throws Exception {
         return dao.getFullInfoTransaction();
     }
@@ -31,7 +31,7 @@ public class TransactionService {
         return dao.totalByStatus(status);
     }
 
-    // ================= ACTIONS =================
+  
     public void addTransaction(Date dateEmprunt, Date dateRetour,
                                int utilisateurId, int livreId) throws Exception {
 
